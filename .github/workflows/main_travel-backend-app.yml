@@ -1,7 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-# More info on Python, GitHub Actions, and Azure App Service: https://aka.ms/python-webapps-actions
-
 name: Build and deploy Python app to Azure Web App - travel-backend-app
 
 on:
@@ -14,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read # Required for actions/checkout
 
     steps:
       - uses: actions/checkout@v4
@@ -24,52 +20,43 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Create and start virtual environment
-        working-directory: backend
-        run: |
-          python -m venv venv
-          source venv/bin/activate
-      
       - name: Install dependencies
-        working-directory: backend
-        run: pip install -r requirements.txt
-        
-      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
+        working-directory: backend   # 👈 point to backend folder
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-      - name: Upload artifact for deployment jobs
+      - name: Upload backend artifact
         uses: actions/upload-artifact@v4
         with:
-          name: python-app
-          path: |
-            backend
-            !backend/venv/
+          name: backend-artifact
+          path: backend   # 👈 upload the whole backend folder
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
     permissions:
-      id-token: write #This is required for requesting the JWT
-      contents: read #This is required for actions/checkout
+      id-token: write
+      contents: read
 
     steps:
-      - name: Download artifact from build job
+      - name: Download backend artifact
         uses: actions/download-artifact@v4
         with:
-          name: python-app
-      
+          name: backend-artifact
+          path: .   # download into the root of the runner
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_6E3CBEC52B4048679C3FD8B19AB2C61C }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_B67AAEA2548B4ED9B37A856E54BAD4C1 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_6CBF73398B1449E4B0C0ADBC4EA210C3 }}
+          client-id: ${{ secrets.__clientidsecretname__ }}
+          tenant-id: ${{ secrets.__tenantidsecretname__ }}
+          subscription-id: ${{ secrets.__subscriptionidsecretname__ }}
 
-      - name: 'Deploy to Azure Web App'
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
           app-name: 'travel-backend-app'
           slot-name: 'Production'
-          package: backend
-
-          
+          package: ./backend   # 👈 now points to the backend folder we downloaded
