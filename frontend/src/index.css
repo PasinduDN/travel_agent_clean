@@ -1,0 +1,186 @@
+/* src/index.css */
+
+:root {
+  --bg-gradient-start: #0d1a26;
+  --bg-gradient-end: #003c43;
+  --primary-text-color: #E0E0E0;
+  --accent-color: #00D4FF;
+  --glow-color: rgba(0, 212, 255, 0.75);
+}
+
+body {
+  margin: 0;
+  background-image: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+  min-height: 100vh;
+}
+
+.frosted-card {
+  background: rgba(255, 255, 255, 0.1); /* light transparency */
+  backdrop-filter: blur(10px);          /* frosted effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.glow-button {
+  background: transparent;
+  color: #faf7f7e5;
+  border: 2px solid var(--accent-color);
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px var(--glow-color);
+  display: block;           /* allows centering */
+  margin: 20px auto;        /* centers horizontally */
+  max-width: 250px;         /* prevents button from being too wide on large screens */
+  width: 80%;               /* scales on mobile */
+  text-align: center;
+}
+
+.glow-button:hover {
+  box-shadow: 0 0 20px var(--glow-color);
+  background: rgba(0, 212, 255, 0.1);
+}
+
+
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 70px 6%;
+  color: var(--primary-text-color);
+  flex-wrap: wrap;
+}
+
+.hero-text {
+  max-width: 520px;
+}
+
+.hero-text h1 {
+  font-size: 2.7rem;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 22px;
+}
+
+.hero-text .accent {
+  color: #ffcc70; /* warm highlight instead of blue */
+}
+
+.hero-text p {
+  font-size: 1.15rem;
+  margin-bottom: 24px;
+  opacity: 0.95;
+}
+
+.hero-points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.point {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 204, 112, 0.6);
+  border-radius: 12px;
+  padding: 6px 14px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  backdrop-filter: blur(6px);
+}
+
+.hero-cta {
+  background: linear-gradient(135deg, #ffcc70, #ff884d);
+  color: #1a1a1a;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  padding: 15px 30px;
+  font-size: 1.05rem;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(255, 136, 77, 0.4);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+.hero-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(255, 136, 77, 0.6);
+}
+
+.hero-cta-ai {
+  background: linear-gradient(135deg, #d5f39d, #aaf0e1);
+  color: #1a1a1a;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  padding: 15px 30px;
+  font-size: 1.05rem;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(209, 224, 138, 0.4);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hero-cta-ai:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(255, 136, 77, 0.6);
+}
+
+.hero-image {
+  flex: 1;
+  min-width: 280px;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 24px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+}
+
+@keyframes scroll-up {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-100%); }
+}
+
+
+/* Default button styling (for larger screens) */
+.button-responsive {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: white;
+  border-radius: 10px;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.06);
+  min-width: 120px;
+}
+
+/* Media query for small screens (max-width: 600px) */
+@media (max-width: 600px) {
+  .button-responsive {
+    padding: 8px 12px;   /* Smaller padding on mobile */
+    font-size: 0.875rem; /* Smaller font size on mobile */
+  }
+}
+
+/* Example of a media query to adjust the layout on smaller screens */
+@media (max-width: 600px) {
+  .calendar-container {
+    display: block; /* Stack the calendars vertically */
+    gap: 16px;
+  }
+
+  .calendar-item {
+    width: 100%; /* Make each calendar take the full width on mobile */
+    max-width: 100%;
+  }
+}
